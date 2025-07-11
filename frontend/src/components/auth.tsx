@@ -17,7 +17,7 @@ const Login: React.FC = () => {
             const response = await axios.post(`http://127.0.0.1:8000/${endpoint}`, data)
             const token = response.data.token
             localStorage.setItem('token', token)
-            navigate("/home")
+            navigate("/main")
             console.log('login successful')
     }
         catch(err: any){
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
 
 
     return (
-        <>
+        <div className="login">
         <h2>{isRegistering ? 'Register' : 'Login'}</h2>
         <form onSubmit={handleLogin}>
             {isRegistering === true && (
@@ -51,10 +51,10 @@ const Login: React.FC = () => {
 
             <button type="submit">login</button>
         </form>
-        <p onClick={() => setIsRegistering(!isRegistering)}>
+        <p className='changeLogin' onClick={() => setIsRegistering(!isRegistering)}>
             {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}
         </p>
-        </>
+        </div>
     )  
 }
 

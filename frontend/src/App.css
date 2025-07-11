@@ -1,4 +1,87 @@
 .App {
   text-align: center;
+  background-color: rgb(26, 26, 32);
 }
 
+.sidebar {
+  background-color: rgb(26, 26, 32);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  border-right: 5px solid white ;
+}
+
+.sidebar h2 {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar .link {
+  cursor: pointer;
+  transition: 0.3;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 30px;
+ 
+}
+
+.sidebar nav{
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: .6fr 3.4fr;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* login in style */
+.login{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+  background-color: var(--black);
+  height: 100vh;
+}
+.login form{
+  display: inline-block;
+  text-Align: left;
+  text-align: center;
+}
+.login input{
+  display: block;
+  margin-bottom: 15px; 
+  padding: 8px;
+  width: 200px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+}
+.login button{
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.login button:hover {
+  background-color: grey;
+}
+.login h2{
+  color: white;
+}
+
+.changeLogin{
+  cursor: pointer; 
+  margin-Top: 10px;
+  color: white; 
+}
+.changeLogin:hover{
+  color: var(--mainBlue);
+}
