@@ -17,7 +17,9 @@ const Login: React.FC = () => {
             const response = await axios.post(`http://127.0.0.1:8000/${endpoint}`, data)
             const token = response.data.token
             localStorage.setItem('token', token)
-            navigate("/main")
+            localStorage.setItem('userId', response.data.user_id)
+            localStorage.setItem('username', response.data.username)
+            navigate("/main/home")
             console.log('login successful')
     }
         catch(err: any){

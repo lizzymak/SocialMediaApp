@@ -5,6 +5,7 @@ import Login from './components/auth'
 import Main from './components/mainLayout';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Profile from './components/profile';
+import Home from './components/home';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/main' element={<Main/>}>
-             <Route path="profile" element={<Profile />} />
+              <Route path="home" element={<Home />} />
+              <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>

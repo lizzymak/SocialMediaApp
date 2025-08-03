@@ -85,3 +85,52 @@
 .changeLogin:hover{
   color: var(--mainBlue);
 }
+
+.layout{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding:100px;
+  gap:30px
+}
+.profile{
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  border: solid 2px white;
+  border-radius: 10px;
+}
+.profile button{
+  background-color:#0096FF;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+  margin-block-start: 0.5em;
+}
+.profile img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}
+.profile h1{
+  color:white;
+  text-align: left;
+}
+.profile h2{
+  color:rgb(127, 129, 136);
+  text-align: left;
+}
+.postsTopArea{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.postsTopArea button{
+  border-radius: 30px;
+  width: 35px;
+  height: 35px;
+  font-size: large;
+}

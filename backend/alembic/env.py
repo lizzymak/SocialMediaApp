@@ -8,6 +8,7 @@ from alembic import context
 #alembic detects model change automatically here
 from app.database import Base
 from app.models import user  # import all models here
+from app.models import post
 target_metadata = Base.metadata
 
 # this is the Alembic Config object, which provides

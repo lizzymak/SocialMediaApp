@@ -10,3 +10,9 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     username: str
     password: str
+
+#expected fields when updating profile
+class UserUpdate(BaseModel):
+    username: str | None = None  #if user doesnt change this its set to None
+    bio: str | None = None
+    profile_pic: str | None = None

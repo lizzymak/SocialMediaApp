@@ -32,5 +32,5 @@ def authenticate_user(db: Session, username: str, password: str):
         raise HTTPException(status_code=401, detail="Invalid Credentials")
     
     token = create_access_token({"sub": user.username})
-    return {"access token": token, "token_type": "bearer"}
+    return {"access token": token, "token_type": "bearer", "user_id": user.id, "username": user.username}
 
