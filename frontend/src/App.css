@@ -107,7 +107,7 @@
   padding: 8px 10px;
   cursor: pointer;
   transition: background-color 0.2s;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   margin-block-start: 0.5em;
 }
 .profile img{
@@ -133,4 +133,33 @@
   width: 35px;
   height: 35px;
   font-size: large;
+}
+
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content{
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal h2{
+  text-align: center;
 }

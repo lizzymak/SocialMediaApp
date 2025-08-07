@@ -10,6 +10,10 @@ const Profile: React.FC = () => {
     const [editProfile, setEditProfile] = useState({ username: "", bio: "", profile_pic: "" })
     const user = localStorage.getItem('username')
 
+    const [showModal, setShowModal] = useState(false)
+    const [postText, setPostText] = useState<string | "">("")
+    const [postPic, setPostPic] = useState<string | null>(null)
+
     const fetchProfile = async () => { //this gets users profile data and sets it
             try{
             const response = await axios.get(`http://127.0.0.1:8000/profile/${user}`)
@@ -57,6 +61,23 @@ const Profile: React.FC = () => {
         reader.readAsDataURL(file)
     }
 }
+
+const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads file and converts to base64 encoded img
+        const file = e.target.files?.[0]
+        if(file){
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                // reader.result can be string, ArrayBuffer, or null
+            if (typeof reader.result === "string") {
+                setPostPic(reader.result)
+            }
+        }
+        reader.readAsDataURL(file)
+    }
+}
+
+
+
     
 
     return(
@@ -88,9 +109,22 @@ const Profile: React.FC = () => {
             <div className="profile">
                 <div className="postsTopArea">
                     <h1>Posts</h1>
-                    <button>+</button>
+                    <button onClick={()=>setShowModal(true)}>+</button>
                 </div>
-                
+                {showModal && (
+                    <div className="modal">
+                        <div className="content">
+                            <h2>Create Post</h2>
+                            {postPic && (<img src={postPic} alt="preview" className=""/>)}
+                            <input type="file" onChange={postImageChange}/>
+                            
+                            <textarea placeholder= 'Write something...' value={postText} onChange={(e)=>setPostText(e.target.value)}></textarea>
+                            <button type="submit">Post</button>
+                            <button onClick={()=>setShowModal(false)} >Cancel</button>
+                        </div>
+                    </div>
+                    
+                )}
             </div>
         </div>
     )

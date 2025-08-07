@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Optional
 
 class PostCreate(BaseModel): #createpost
-    content: str
+    content: Optional[str]
     image_url: Optional[str] = None
 
 class PostResponse(PostCreate): #return post details

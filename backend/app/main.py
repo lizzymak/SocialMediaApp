@@ -6,7 +6,9 @@ from app.schemas.user import UserCreate, UserLogin
 from app.crud.user import register_user, authenticate_user
 from app.crud.profile import get_profile as get_profile_data
 from app.crud.profile import update_profile as update_profile_data
+from app.crud.profile import create_post as create_post_data
 from app.schemas.user import UserUpdate
+from app.schemas.post import PostCreate
 
 app = FastAPI()
 
@@ -42,3 +44,7 @@ def get_profile(username:str, db: Session = Depends(get_db)):
 @app.patch("/profile/{username}")
 def update_profile(update_data: UserUpdate, username:str, db: Session = Depends(get_db)):
     return update_profile_data(update_data, username, db)
+
+@app.post("/profile/{username}")
+def create_post(username:str, post_data: PostCreate, db: Session = Depends(get_db)):
+    return create_post_data(username, post_data, db)

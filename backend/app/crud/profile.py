@@ -4,6 +4,7 @@ from app.models.post import Post
 from fastapi import APIRouter, Depends, status, HTTPException
 from app.database import get_db
 from app.schemas.user import UserUpdate
+from app.schemas.post import PostCreate, PostResponse
 
 
 def get_profile(username:str, db: Session):
@@ -39,3 +40,21 @@ def update_profile(update_data: UserUpdate, username:str, db:Session):
     db.commit()
     db.refresh(user)
     return {"message": "profile updated"}
+
+def create_post(username:str, post_data: PostCreate, db:Session):
+    user = db.query(User).filter(User.username==username).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    if not post_data.content and not post_data.image_url:
+        raise HTTPException(status_code=400, detail="Post must have content or an image.")
+    
+    new_post = Post(
+        content = post_data.content or "",
+        image_url = post_data.image_url,
+        user_id = user.id
+    )
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
+
+    return {"message":"post added"}
