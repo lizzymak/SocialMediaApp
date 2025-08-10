@@ -90,7 +90,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   padding:100px;
-  gap:30px
+  gap:30px;
 }
 .profile{
   padding: 40px 50px;
@@ -98,6 +98,7 @@
   flex-direction: column;
   border: solid 2px white;
   border-radius: 10px;
+  height: 100%;
 }
 .profile button{
   background-color:#0096FF;
@@ -123,6 +124,7 @@
   color:rgb(127, 129, 136);
   text-align: left;
 }
+
 .postsTopArea{
   display: flex;
   flex-direction: row;
@@ -133,6 +135,29 @@
   width: 35px;
   height: 35px;
   font-size: large;
+}
+.postsConatiner{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem
+}
+.postsCard{
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 250px;
+  height: max-content;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.postsCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.postsCard p{
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: white;
 }
 
 .modal{
@@ -145,6 +170,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.modal h2{
+  text-align: center;
 }
 
 .content{
@@ -160,6 +188,4 @@
   gap: 20px;
 }
 
-.modal h2{
-  text-align: center;
-}
+

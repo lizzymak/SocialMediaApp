@@ -45,6 +45,6 @@ def get_profile(username:str, db: Session = Depends(get_db)):
 def update_profile(update_data: UserUpdate, username:str, db: Session = Depends(get_db)):
     return update_profile_data(update_data, username, db)
 
-@app.post("/profile/{username}")
+@app.post("/profile/post/{username}")
 def create_post(username:str, post_data: PostCreate, db: Session = Depends(get_db)):
     return create_post_data(username, post_data, db)

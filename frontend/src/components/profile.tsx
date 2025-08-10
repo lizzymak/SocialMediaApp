@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from 'axios'
-import { useNavigate } from "react-router-dom" 
+// import { useNavigate } from "react-router-dom" 
+// import path from "path"
 
 const Profile: React.FC = () => {
     const [username, setUsername] = useState('')
     const [bio, setBio] = useState('')
     const [profilePic, setProfilePic] = useState('')
+    const [posts, setPosts] = useState([])
     const [editMode, setEditMode] = useState(false)
     const [editProfile, setEditProfile] = useState({ username: "", bio: "", profile_pic: "" })
     const user = localStorage.getItem('username')
@@ -14,12 +16,19 @@ const Profile: React.FC = () => {
     const [postText, setPostText] = useState<string | "">("")
     const [postPic, setPostPic] = useState<string | null>(null)
 
+    type Post = {
+        id: number
+        image_url: string
+        content: string
+    }
+
     const fetchProfile = async () => { //this gets users profile data and sets it
             try{
             const response = await axios.get(`http://127.0.0.1:8000/profile/${user}`)
             setUsername(response.data.username)
             setBio(response.data.bio)
             setProfilePic(response.data.profile_pic)
+            setPosts(response.data.posts)
             console.log(response)
             }
             catch(err){
@@ -45,6 +54,23 @@ const Profile: React.FC = () => {
         }
         catch{
             alert("profile update failed")
+        }
+    }
+
+    const createPost = async() => {
+        try{
+            const res = await axios.post(`http://127.0.0.1:8000/profile/post/${user}`,{
+                content: postText,
+                image_url: postPic 
+            })
+            setShowModal(false)
+            setPostPic(null)
+            setPostText("")
+            fetchProfile()
+            return res.data
+        }
+        catch{
+            alert("create post failed")
         }
     }
 
@@ -119,12 +145,24 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
                             <input type="file" onChange={postImageChange}/>
                             
                             <textarea placeholder= 'Write something...' value={postText} onChange={(e)=>setPostText(e.target.value)}></textarea>
-                            <button type="submit">Post</button>
+                            <button type="submit" onClick={createPost}>Post</button>
                             <button onClick={()=>setShowModal(false)} >Cancel</button>
                         </div>
                     </div>
-                    
                 )}
+                <div className="postsConatiner">
+                    {posts ? (
+                        posts.map((post: Post, index: number) => (
+                            <div key={index} className="postsCard">
+                                {post.image_url && (
+                                    <img src={post.image_url} alt="post" />)}
+                                    <p>{post.content}</p>
+                            </div>
+                        ))
+                    ):(
+                        <h2>No posts...</h2>
+                    )}
+                </div>
             </div>
         </div>
     )

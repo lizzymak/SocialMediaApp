@@ -21,6 +21,7 @@ def get_profile(username:str, db: Session):
         "posts": [
             {"id": p.id, 
             "content": p.content, 
+            "image_url": p.image_url, 
             "created_at": p.created_at} 
             for p in posts]
     }
