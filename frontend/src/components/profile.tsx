@@ -118,7 +118,7 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
                 </div>
                 <h1>{username}</h1>
                 {editMode ? (
-                    <input type="text" placeholder="type new bio..." onChange={(e) => setEditProfile({ ...editProfile, bio: e.target.value })}/>
+                    <input type="text" placeholder="type new bio..." className="bioInput" onChange={(e) => setEditProfile({ ...editProfile, bio: e.target.value })}/>
                 ):(
                     <h2>{bio}</h2>
                 )}

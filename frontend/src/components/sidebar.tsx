@@ -7,6 +7,7 @@ const Sidebar = () =>{
             <nav>
                 <Link to='/main/home' className='link'>Home</Link>
                 <Link to='/main/profile' className='link'>Profile</Link>
+                <Link to='/main/search' className='link'>Search</Link>
             </nav>
             </div>
         

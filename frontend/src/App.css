@@ -124,6 +124,10 @@
   color:rgb(127, 129, 136);
   text-align: left;
 }
+.bioInput{
+  box-sizing: border-box;
+  width: 100%;
+}
 
 .postsTopArea{
   display: flex;
