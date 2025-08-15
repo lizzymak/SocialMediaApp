@@ -8,6 +8,8 @@ const Profile: React.FC = () => {
     const [bio, setBio] = useState('')
     const [profilePic, setProfilePic] = useState('')
     const [posts, setPosts] = useState([])
+    const [followers, setFollowers] = useState(0)
+    const [following, setFollowing] = useState(0)
     const [editMode, setEditMode] = useState(false)
     const [editProfile, setEditProfile] = useState({ username: "", bio: "", profile_pic: "" })
     const user = localStorage.getItem('username')
@@ -29,6 +31,8 @@ const Profile: React.FC = () => {
             setBio(response.data.bio)
             setProfilePic(response.data.profile_pic)
             setPosts(response.data.posts)
+            setFollowers(response.data.followers)
+            setFollowing(response.data.following)
             console.log(response)
             }
             catch(err){
@@ -102,16 +106,19 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
     }
 }
 
+const cancelPostModal = () => {
+    setShowModal(false)
+    setPostPic(null)
+    setPostText("")
+}
 
 
-    
 
     return(
         <div className="layout">
             <div className="profile">
-                
                 <div>
-                    <img src={profilePic || "/images/defaultPFP.jpg"} alt="No profile pic" />
+                    <img src={profilePic || "/images/defaultPFP.jpg"} alt="No profile pic" className="pfp"/>
                     {editMode && (
                         <input type="file" accept="image/*" onChange={profilePicChange}/>
                     )}
@@ -122,6 +129,18 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
                 ):(
                     <h2>{bio}</h2>
                 )}
+
+                <div className="followDisplayBox">
+                    <div>
+                        <p>{followers}</p>
+                        <p>Followers</p>
+                    </div>
+                    <div>
+                        <p>{following}</p>
+                        <p>Following</p>
+                    </div>
+                </div>
+                
                 {!editMode ? (
                     <button onClick={()=>setEditMode(true)}>Edit Profile</button>
                 ):(
@@ -130,8 +149,8 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
                         <button onClick={()=>setEditMode(false)}>Cancel</button>
                     </div>
                 )}
-                
             </div>
+
             <div className="profile">
                 <div className="postsTopArea">
                     <h1>Posts</h1>
@@ -141,12 +160,12 @@ const postImageChange = (e: React.ChangeEvent<HTMLInputElement>) => { //reads fi
                     <div className="modal">
                         <div className="content">
                             <h2>Create Post</h2>
-                            {postPic && (<img src={postPic} alt="preview" className=""/>)}
+                            {postPic && (<img src={postPic} alt="preview" className="postPreview"/>)}
                             <input type="file" onChange={postImageChange}/>
                             
                             <textarea placeholder= 'Write something...' value={postText} onChange={(e)=>setPostText(e.target.value)}></textarea>
                             <button type="submit" onClick={createPost}>Post</button>
-                            <button onClick={()=>setShowModal(false)} >Cancel</button>
+                            <button onClick={cancelPostModal} >Cancel</button>
                         </div>
                     </div>
                 )}

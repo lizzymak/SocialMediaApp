@@ -2,12 +2,12 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, get_db
-from app.schemas.user import UserCreate, UserLogin
+from app.schemas.user import UserCreate, UserLogin, UserUpdate, FollowRequest
 from app.crud.user import register_user, authenticate_user
 from app.crud.profile import get_profile as get_profile_data
 from app.crud.profile import update_profile as update_profile_data
 from app.crud.profile import create_post as create_post_data
-from app.schemas.user import UserUpdate
+from app.crud.profile import follow as follow_user
 from app.schemas.post import PostCreate
 
 app = FastAPI()
@@ -48,3 +48,7 @@ def update_profile(update_data: UserUpdate, username:str, db: Session = Depends(
 @app.post("/profile/post/{username}")
 def create_post(username:str, post_data: PostCreate, db: Session = Depends(get_db)):
     return create_post_data(username, post_data, db)
+
+@app.post("/profile/follow/{username}")
+def follow(username: str, otherUser: FollowRequest, db: Session = Depends(get_db)):
+    return follow_user(username, otherUser, db)

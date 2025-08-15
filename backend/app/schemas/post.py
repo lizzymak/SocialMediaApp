@@ -12,3 +12,4 @@ class PostResponse(PostCreate): #return post details
 
     class Config:
         orm_mode = True  # allows conversion from SQLAlchemy models
+

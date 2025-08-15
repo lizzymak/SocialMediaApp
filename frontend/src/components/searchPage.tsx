@@ -8,6 +8,10 @@ const Search: React.FC = () => {
     const [profilePic, setProfilePic] = useState('')
     const [posts, setPosts] = useState([])
 
+    const [followers, setFollowers] = useState(0)
+    const [following, setFollowing] = useState(0)
+    const [isFollowing, setIsFollowing] = useState(false)
+
     const user = localStorage.getItem('username')
 
     type Post = {
@@ -23,6 +27,9 @@ const Search: React.FC = () => {
             setBio(response.data.bio)
             setProfilePic(response.data.profile_pic)
             setPosts(response.data.posts)
+            setFollowers(response.data.followers)
+            setFollowing(response.data.following)
+            setIsFollowing(response.data.is_following)
             console.log(response)
             }
             catch(err){
@@ -33,7 +40,24 @@ const Search: React.FC = () => {
     const handleSearch = () => {
     if (userInput.trim()) {
         fetchProfile(userInput);
+        }
     }
+
+    const handleFollow = async()=>{
+        try{
+            const response = await axios.post(`http://127.0.0.1:8000/profile/follow/${user}`, {otherUser: userInput})
+            if(response.data.message === "Followed"){
+                setIsFollowing(true)
+                setFollowers(followers+1)
+            }
+            else{
+                setIsFollowing(false)
+                setFollowers(followers-1)
+            }
+        }
+        catch(err){
+            console.error(err)
+        }
     }
 
     return(
@@ -43,13 +67,24 @@ const Search: React.FC = () => {
             <button onClick={handleSearch}>+</button>
 
             {username && userInput.trim() !== "" &&(
-                <div className="layout">
+            <div className="layout">
             <div className="profile">
                 <div>
-                    <img src={profilePic || "/images/defaultPFP.jpg"} alt="No profile pic" />
+                    <img src={profilePic || "/images/defaultPFP.jpg"} alt="No profile pic" className="pfp"/>
                 </div>
                 <h1>{username}</h1>
                 <h2>{bio}</h2>
+                <div className="followDisplayBox">
+                    <div>
+                        <p>{followers}</p>
+                        <p>Followers</p>
+                    </div>
+                    <div>
+                        <p>{following}</p>
+                        <p>Following</p>
+                    </div>
+                </div>
+                <button onClick={handleFollow}>{isFollowing ? "Unfollow" : "Follow"}</button>
             </div>
 
             <div className="profile">
