@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.user import User
+from app.models.user import User, followers_table
 from app.models.post import Post
 from fastapi import APIRouter, Depends, status, HTTPException
 from app.database import get_db
@@ -15,7 +15,7 @@ def get_profile(username:str, db: Session):
     posts = db.query(Post).filter(Post.user_id == user.id).all()
     followers_count = len(user.followers)
     following_count = len(user.following)
-    is_following = username in user.followers
+    is_following = user.id in user.followers
 
     return{
         "username": user.username,
@@ -83,3 +83,13 @@ def follow(username:str, otherUser: FollowRequest, db:Session):
         userToFollow.followers.append(username)
         db.commit()
         return {"message": "Followed"}
+    
+def feed(username:str, db:Session, limit: int = 20, skip: int = 0):
+    user = db.query(User).filter(User.username==username).first()
+    if not user:
+        return []
+    #get ids of user this person follows
+    followed_users =  db.query(followers_table.c.followed_id).filter(followers_table.c.follower_id==user.id).subquery()
+    #get posts from followed users
+    posts = db.query(Post).filter(Post.user_id.in_(followed_users)).order_by(Post.created_at.desc()).all()
+    return posts

@@ -8,6 +8,7 @@ from app.crud.profile import get_profile as get_profile_data
 from app.crud.profile import update_profile as update_profile_data
 from app.crud.profile import create_post as create_post_data
 from app.crud.profile import follow as follow_user
+from app.crud.profile import feed as get_feed
 from app.schemas.post import PostCreate
 
 app = FastAPI()
@@ -52,3 +53,7 @@ def create_post(username:str, post_data: PostCreate, db: Session = Depends(get_d
 @app.post("/profile/follow/{username}")
 def follow(username: str, otherUser: FollowRequest, db: Session = Depends(get_db)):
     return follow_user(username, otherUser, db)
+
+@app.get("/feed/{username}")
+def feed(username: str, db: Session = Depends(get_db)):
+    return get_feed(username, db)
