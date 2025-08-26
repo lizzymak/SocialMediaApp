@@ -1,15 +1,15 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from app.database import SessionLocal, get_db
-from app.schemas.user import UserCreate, UserLogin, UserUpdate, FollowRequest
-from app.crud.user import register_user, authenticate_user
-from app.crud.profile import get_profile as get_profile_data
-from app.crud.profile import update_profile as update_profile_data
-from app.crud.profile import create_post as create_post_data
-from app.crud.profile import follow as follow_user
-from app.crud.profile import feed as get_feed
-from app.schemas.post import PostCreate
+from backend.app.database import SessionLocal, get_db
+from backend.app.schemas.user import UserCreate, UserLogin, UserUpdate, FollowRequest
+from backend.app.crud.user import register_user, authenticate_user
+from backend.app.crud.profile import get_profile as get_profile_data
+from backend.app.crud.profile import update_profile as update_profile_data
+from backend.app.crud.profile import create_post as create_post_data
+from backend.app.crud.profile import follow as follow_user
+from backend.app.crud.profile import feed as get_feed
+from backend.app.schemas.post import PostCreate
 
 app = FastAPI()
 
