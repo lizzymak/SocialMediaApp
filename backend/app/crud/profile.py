@@ -1,10 +1,10 @@
 from sqlalchemy.orm import Session
-from app.models.user import User, followers_table
-from app.models.post import Post
+from backend.app.models.user import User, followers_table
+from backend.app.models.post import Post
 from fastapi import APIRouter, Depends, status, HTTPException
-from app.database import get_db
-from app.schemas.user import UserUpdate, FollowRequest
-from app.schemas.post import PostCreate, PostResponse
+from backend.app.database import get_db
+from backend.app.schemas.user import UserUpdate, FollowRequest
+from backend.app.schemas.post import PostCreate, PostResponse
 
 
 def get_profile(username:str, db: Session):

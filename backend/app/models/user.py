@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
-from app.database import Base
+from backend.app.database import Base
 
 followers_table = Table( #association table
     "followers",

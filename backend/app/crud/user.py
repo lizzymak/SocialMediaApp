@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from app.models.user import User
-from app.auth.hash import hash_password, verify_password
-from app.auth.jwt import create_access_token
+from backend.app.models.user import User
+from backend.app.auth.hash import hash_password, verify_password
+from backend.app.auth.jwt import create_access_token
 from fastapi import HTTPException, status
 
 def register_user(db: Session, username: str, email: str, password: str):
