@@ -15,7 +15,9 @@ app = FastAPI()
 
 origins =[
     "http://localhost:3000",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://socialmediaapp-nzgu.onrender.com",
+    "https://social-media-app-lizzymaks-projects.vercel.app"
 ]
 
 app.add_middleware(

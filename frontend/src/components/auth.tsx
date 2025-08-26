@@ -9,12 +9,17 @@ const Login: React.FC = () => {
     const [isRegistering, setIsRegistering] = useState(false)
     const navigate = useNavigate()
 
+    const backendURL =
+    window.location.hostname === "localhost"
+    ? "http://127.0.0.1:8000" // Local backend
+    : "https://socialmediaapp-nzgu.onrender.com"; // Deployed backend
+
     const handleLogin = async(e: React.FormEvent) => {
         e.preventDefault()
         const endpoint = isRegistering ? 'register' : 'login'
         const data = isRegistering ? {username, email, password} : {username, password}
         try{
-            const response = await axios.post(`http://127.0.0.1:8000/${endpoint}`, data)
+            const response = await axios.post(`${backendURL}/${endpoint}`, data)
             const token = response.data.token
             localStorage.setItem('token', token)
             localStorage.setItem('userId', response.data.user_id)
