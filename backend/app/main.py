@@ -10,6 +10,7 @@ from backend.app.crud.profile import create_post as create_post_data
 from backend.app.crud.profile import follow as follow_user
 from backend.app.crud.profile import feed as get_feed
 from backend.app.schemas.post import PostCreate
+import re
 
 app = FastAPI()
 
@@ -18,10 +19,13 @@ origins =[
     "http://127.0.0.1:3000",
     "https://social-media-app-jade-seven.vercel.app"
 ]
+allow_origin_regex = r"https://.*\.vercel\.app"
+
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins = ["*"],
+     allow_origin_regex=allow_origin_regex,
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],
