@@ -11,6 +11,9 @@ from backend.app.crud.profile import follow as follow_user
 from backend.app.crud.profile import feed as get_feed
 from backend.app.schemas.post import PostCreate
 import re
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
