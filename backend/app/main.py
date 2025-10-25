@@ -45,9 +45,26 @@ app.add_middleware(
 def test_db():
     return {"message": "Connected to db!!"}
 
-@app.post("/register")
-def register(user: UserCreate, db: Session = Depends(get_db)):
-    return register_user(db, user.username, user.email, user.password)
+#@app.post("/register")
+#def register(user: UserCreate, db: Session = Depends(get_db)):
+    #return register_user(db, user.username, user.email, user.password)
+@app.post("/login")
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    try:
+        # This calls your authenticate_user function
+        result = authenticate_user(db, user.username, user.password)
+        
+        # ... (logic for handling successful login)
+            
+    except Exception as e:
+        # This catches CRITICAL errors like DB connection failures and logs them.
+        logger.error(f"Critical 500 error during login for user {user.username}: {e}", exc_info=True)
+        # This returns a proper 500 HTTP response (with CORS headers)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected critical server error occurred. Check server logs."
+        )
+
 
 @app.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
