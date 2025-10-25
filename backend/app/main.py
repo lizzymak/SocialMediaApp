@@ -19,15 +19,25 @@ origins =[
     "http://127.0.0.1:3000",
     "https://social-media-app-jade-seven.vercel.app"
 ]
+
+# Regex to cover any Vercel preview deployment URLs (which might not be in the list above)
 allow_origin_regex = r"https://.*\.vercel\.app"
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["*"],
-     allow_origin_regex=allow_origin_regex,
+    # Use the specific list of allowed origins. 
+    # This is MANDATORY when allow_credentials=True.
+    allow_origins = origins, 
+    
+    # Keep the regex to cover dynamic Vercel preview domains
+    allow_origin_regex=allow_origin_regex,
+    
+    # This is required if you are sending authentication tokens, cookies, or authorization headers
     allow_credentials=True,
-    allow_methods=["*"],  
+    
+    # Allow all methods and headers
+    allow_methods=["*"], 
     allow_headers=["*"],
 )
 
